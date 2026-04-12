@@ -158,3 +158,20 @@ Over-representation analysis for GO sub-ontologies (top 10 terms each, faceted b
 | `circlize` | Color ramp functions for heatmap scales |
 | `BiocParallel` | Parallel backend registration |
 
+
+### Installation
+
+```r
+# CRAN
+install.packages(c("data.table", "tidyverse", "ggrepel",
+                   "RColorBrewer", "ggExtra", "WGCNA"))
+
+# Bioconductor
+if (!require("BiocManager")) install.packages("BiocManager")
+BiocManager::install(c("DESeq2", "org.Hs.eg.db", "clusterProfiler",
+                       "enrichplot", "ComplexHeatmap", "circlize",
+                       "BiocParallel"))
+```
+
+---
+
