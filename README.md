@@ -125,7 +125,7 @@ Over-representation analysis for GO sub-ontologies (top 10 terms each, faceted b
 **(B-G)** Gene Significance (GS) vs Module Membership (MM) for the 6 modules most strongly correlated with HCC — blue, brown, green, magenta, pink, and yellow. High GS-MM correlation confirms intramodular hub genes are the most biologically relevant for HCC. Marginal histograms show GS and MM distributions. Pearson r and p-value annotated on each panel.
 
 <p align="center">
- src="results_HCC/03_plots/WGCNA/wgcna2.png" width="90%" alt="WGCNA Network Construction">
+ <img <img src="results_HCC/03_plots/WGCNA/wgcna2.png" width="90%" alt="WGCNA Network Construction">
 </p>
 
 
