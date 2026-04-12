@@ -1,0 +1,23 @@
+# Raw count matrices
+count_matrix_metadata/*.tsv
+
+# Keep metadata CSV
+!count_matrix_metadata/HCC_metadata.csv
+
+# R binary objects
+*.rds
+.Rhistory
+.RData
+.Rproj.user/
+
+# Large TIFF outputs
+*.tiff
+*.tif
+
+# Very large normalized expression tables
+results_HCC/02_tables/DEG/VST_normalized_expression.csv
+results_HCC/02_tables/DEG/VST_normalized_expression_symbols.csv
+
+# OS / editor junk
+.DS_Store
+Thumbs.db
