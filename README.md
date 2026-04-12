@@ -114,7 +114,7 @@ Over-representation analysis for GO sub-ontologies (top 10 terms each, faceted b
 **(D)** Inter-module topological overlap distance heatmap. Color scale: red = distance 0 (highly co-expressed) to white to blue = distance 1.5 (anti-correlated). Modules are hierarchically clustered.
 
 <p align="center">
-  <img src="results_HCC/03_plots/WGCNA/wgcna2.png" width="90%" alt="WGCNA Network Construction">
+  <img <img src="results_HCC/03_plots/WGCNA/wgcna1_.png" width="90%" alt="WGCNA Module-Trait and GS-MM Scatter">
 </p>
 
 <br>
@@ -125,55 +125,13 @@ Over-representation analysis for GO sub-ontologies (top 10 terms each, faceted b
 **(B-G)** Gene Significance (GS) vs Module Membership (MM) for the 6 modules most strongly correlated with HCC — blue, brown, green, magenta, pink, and yellow. High GS-MM correlation confirms intramodular hub genes are the most biologically relevant for HCC. Marginal histograms show GS and MM distributions. Pearson r and p-value annotated on each panel.
 
 <p align="center">
-  <img src="results_HCC/03_plots/WGCNA/wgcna1_.png" width="90%" alt="WGCNA Module-Trait and GS-MM Scatter">
+ src="results_HCC/03_plots/WGCNA/wgcna2.png" width="90%" alt="WGCNA Network Construction">
 </p>
 
----
-
-## Repository Structure
-Hepatocellular-carcinoma-HCC-bulk-rna-seq-DGE/
-├── r_script/
-│ └── liver_lihc_final.R
-├── count_matrix_metadata/
-│ └── HCC_metadata.csv
-├── results_HCC/
-│ ├── 02_tables/
-│ │ ├── DEG/
-│ │ │ ├── DESeq2_all_genes_with_symbols.csv
-│ │ │ ├── DESeq2_significant_DEGs_all.csv
-│ │ │ └── DESeq2_significant_DEGs_proteinCoding.csv
-│ │ ├── enrichment/
-│ │ │ ├── GO_BP.csv / GO_BP_with_direction.csv
-│ │ │ ├── GO_CC.csv / GO_CC_with_direction.csv
-│ │ │ ├── GO_MF.csv / GO_MF_with_direction.csv
-│ │ │ └── KEGG.csv / KEGG_with_direction.csv
-│ │ ├── GSEA/
-│ │ │ ├── GSEA_BP.csv / GSEA_BP_results.csv
-│ │ │ ├── GSEA_CC.csv / GSEA_CC_results.csv
-│ │ │ ├── GSEA_MF.csv / GSEA_MF_results.csv
-│ │ │ └── GSEA_KEGG.csv / GSEA_KEGG_results.csv
-│ │ └── WGCNA/
-│ │ ├── Module_Gene_Assignments.csv
-│ │ ├── Module_Trait_Correlations.csv
-│ │ └── Module_Trait_Pvalues.csv
-│ └── 03_plots/
-│ ├── DEG/ # MA plot, Volcano plot (PNG)
-│ ├── Heatmap/ # Top 25 up + top 25 down heatmap (PNG)
-│ ├── enrichment/ # GO BP/CC/MF and KEGG plots (PNG)
-│ ├── GOChord/ # GOChord diagrams (PNG)
-│ ├── GSEA/ # GSEA enrichment plots (PNG, SVG)
-│ └── WGCNA/ # WGCNA composite figures (PNG)
-└── .gitignore
-
-text
-
-**Excluded from this repository:**
-- Raw count TSV matrices (`count_matrix_metadata/*.tsv`) — up to 41 MB each
-- R binary objects (`*.rds`) — DESeq2 object 353 MB, VST matrices 30-36 MB
-- TIFF plot files (`*.tiff`) — 30-160 MB per file
-- Oversized VST expression tables (`VST_normalized_expression*.csv`) — 118-122 MB each
 
 ---
+
+
 
 ## R Dependencies
 
