@@ -1167,9 +1167,9 @@ for (mod in top6_modules) {
   message("Plot 6 saved: GS-MM Scatter — ", mod, " module")
 }
 
-# ============================================================
+
 # Save WGCNA objects for downstream use
-# ============================================================
+
 
 saveRDS(list(bwnet              = bwnet,
              moduleColors       = moduleColors,
