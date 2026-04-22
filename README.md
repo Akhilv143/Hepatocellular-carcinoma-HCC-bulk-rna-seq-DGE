@@ -13,6 +13,11 @@
 ## Project Overview
 
 This repository contains a comprehensive, multi-cohort bulk RNA-seq bioinformatics pipeline for Hepatocellular Carcinoma (HCC). By integrating four independent GEO datasets aligned to GRCh38.p13, the pipeline models inter-study batch effects within the DESeq2 design formula to identify robust transcriptomic signatures. The workflow covers raw count matrix integration, DESeq2-based differential expression, protein-coding gene filtering, functional enrichment (GO and KEGG), Gene Set Enrichment Analysis (GSEA), and Weighted Gene Co-expression Network Analysis (WGCNA).
+
+**Main Analysis Script:** [`r_script/liver_lihc_final.R`](r_script/liver_lihc_final.R)
+
+### Pipeline Workflow
+
 ```mermaid
 graph TD
     classDef data fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
@@ -61,7 +66,6 @@ graph TD
         VST --> Heatmap
         WGCNA --> NetViz
     end
-
 **Main Analysis Script:** [`r_script/liver_lihc_final.R`](r_script/liver_lihc_final.R)
 
 ---
