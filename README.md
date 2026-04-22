@@ -1,5 +1,11 @@
 # Hepatocellular Carcinoma (HCC) — Bulk RNA-seq Differential Gene Expression Analysis
 
+[![R](https://img.shields.io/badge/Language-R_4.0+-blue.svg)](https://www.r-project.org/)
+[![DESeq2](https://img.shields.io/badge/Package-DESeq2-orange.svg)](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)
+[![sva](https://img.shields.io/badge/Package-sva_(ComBat--seq)-purple.svg)](https://bioconductor.org/packages/release/bioc/html/sva.html)
+[![clusterProfiler](https://img.shields.io/badge/Package-clusterProfiler-teal.svg)](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html)
+[![License](https://img.shields.io/badge/License-MIT-yellowgreen.svg)](https://opensource.org/licenses/MIT)
+
 ## Project Overview
 
 This repository contains a comprehensive, multi-cohort bulk RNA-seq bioinformatics pipeline for Hepatocellular Carcinoma (HCC). By integrating four independent GEO datasets aligned to GRCh38.p13, the pipeline models inter-study batch effects within the DESeq2 design formula to identify robust transcriptomic signatures. The workflow covers raw count matrix integration, DESeq2-based differential expression, protein-coding gene filtering, functional enrichment (GO and KEGG), Gene Set Enrichment Analysis (GSEA), and Weighted Gene Co-expression Network Analysis (WGCNA).
@@ -114,7 +120,7 @@ Over-representation analysis for GO sub-ontologies (top 10 terms each, faceted b
 **(D)** Inter-module topological overlap distance heatmap. Color scale: red = distance 0 (highly co-expressed) to white to blue = distance 1.5 (anti-correlated). Modules are hierarchically clustered.
 
 <p align="center">
-  <img <img src="results_HCC/03_plots/WGCNA/wgcna1_.png" width="90%" alt="WGCNA Module-Trait and GS-MM Scatter">
+  <img src="results_HCC/03_plots/WGCNA/wgcna1_.png" width="90%" alt="WGCNA Module-Trait and GS-MM Scatter">
 </p>
 
 <br>
@@ -125,7 +131,7 @@ Over-representation analysis for GO sub-ontologies (top 10 terms each, faceted b
 **(B-G)** Gene Significance (GS) vs Module Membership (MM) for the 6 modules most strongly correlated with HCC — blue, brown, green, magenta, pink, and yellow. High GS-MM correlation confirms intramodular hub genes are the most biologically relevant for HCC. Marginal histograms show GS and MM distributions. Pearson r and p-value annotated on each panel.
 
 <p align="center">
- <img <img src="results_HCC/03_plots/WGCNA/wgcna2.png" width="90%" alt="WGCNA Network Construction">
+ <img src="results_HCC/03_plots/WGCNA/wgcna2.png" width="90%" alt="WGCNA Network Construction">
 </p>
 
 
@@ -171,7 +177,3 @@ if (!require("BiocManager")) install.packages("BiocManager")
 BiocManager::install(c("DESeq2", "org.Hs.eg.db", "clusterProfiler",
                        "enrichplot", "ComplexHeatmap", "circlize",
                        "BiocParallel"))
-```
-
----
-
