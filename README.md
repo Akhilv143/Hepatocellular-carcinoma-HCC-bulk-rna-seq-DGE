@@ -13,6 +13,54 @@
 ## Project Overview
 
 This repository contains a comprehensive, multi-cohort bulk RNA-seq bioinformatics pipeline for Hepatocellular Carcinoma (HCC). By integrating four independent GEO datasets aligned to GRCh38.p13, the pipeline models inter-study batch effects within the DESeq2 design formula to identify robust transcriptomic signatures. The workflow covers raw count matrix integration, DESeq2-based differential expression, protein-coding gene filtering, functional enrichment (GO and KEGG), Gene Set Enrichment Analysis (GSEA), and Weighted Gene Co-expression Network Analysis (WGCNA).
+```mermaid
+graph TD
+    classDef data fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px;
+    classDef analysis fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px;
+    classDef visual fill:#fff3e0,stroke:#e65100,stroke-width:2px;
+
+    subgraph Input [1. Input Datasets]
+        direction LR
+        D1(GSE77314):::data
+        D2(GSE124535):::data
+        D3(GSE138485):::data
+        D4(GSE144269):::data
+    end
+
+    Merge[Merge and Intersect Raw Counts]:::process
+    Input --> Merge
+
+    subgraph DEG [2. Differential Expression]
+        Model[DESeq2 Modeling<br/>~ batch + condition]:::process
+        Filter[Filter Non-Coding Elements]:::process
+        SigDEGs(Protein-Coding DEGs):::data
+        
+        Merge --> Model
+        Model --> Filter
+        Filter --> SigDEGs
+    end
+
+    subgraph Downstream [3. Downstream Analytics]
+        Enrich[GO and KEGG Enrichment]:::analysis
+        VST[VST Normalization]:::process
+        WGCNA[WGCNA Network Analysis]:::analysis
+        
+        SigDEGs --> Enrich
+        Model --> VST
+        VST --> WGCNA
+    end
+
+    subgraph Viz [4. Visualizations]
+        Plots[Volcano and MA Plots]:::visual
+        Heatmap[Z-Score Heatmap]:::visual
+        NetViz[Module-Trait Correlation]:::visual
+        
+        SigDEGs --> Plots
+        SigDEGs --> Heatmap
+        VST --> Heatmap
+        WGCNA --> NetViz
+    end
 
 **Main Analysis Script:** [`r_script/liver_lihc_final.R`](r_script/liver_lihc_final.R)
 
