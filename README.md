@@ -10,7 +10,7 @@
 [![ggExtra](https://img.shields.io/badge/CRAN-ggExtra-FF8C00.svg)](https://cran.r-project.org/package=ggExtra)
 [![License](https://img.shields.io/badge/License-MIT-4CAF50.svg)](https://opensource.org/licenses/MIT)
 
-## 📊 Project Overview
+## Project Overview
 
 This repository contains a comprehensive, multi-cohort bulk RNA-seq bioinformatics pipeline for Hepatocellular Carcinoma (HCC). By integrating four independent GEO datasets aligned to GRCh38.p13, the pipeline models inter-study batch effects within the DESeq2 design formula to identify robust transcriptomic signatures. The workflow covers raw count matrix integration, DESeq2-based differential expression, protein-coding gene filtering, functional enrichment (GO and KEGG), Gene Set Enrichment Analysis (GSEA), and Weighted Gene Co-expression Network Analysis (WGCNA).
 
@@ -18,61 +18,7 @@ This repository contains a comprehensive, multi-cohort bulk RNA-seq bioinformati
 
 ---
 
-## ⚙️ Pipeline Workflow
-
-```mermaid
-graph TD
-    classDef data fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
-    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px;
-    classDef analysis fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px;
-    classDef visual fill:#fff3e0,stroke:#e65100,stroke-width:2px;
-
-    subgraph Input [1. Input Datasets]
-        direction LR
-        D1(GSE77314):::data
-        D2(GSE124535):::data
-        D3(GSE138485):::data
-        D4(GSE144269):::data
-    end
-
-    Merge[Merge and Intersect Raw Counts]:::process
-    Input --> Merge
-
-    subgraph DEG [2. Differential Expression]
-        Model[DESeq2 Modeling<br/>~ batch + condition]:::process
-        Filter[Filter Non-Coding Elements]:::process
-        SigDEGs(Protein-Coding DEGs):::data
-        
-        Merge --> Model
-        Model --> Filter
-        Filter --> SigDEGs
-    end
-
-    subgraph Downstream [3. Downstream Analytics]
-        Enrich[GO and KEGG Enrichment]:::analysis
-        VST[VST Normalization]:::process
-        WGCNA[WGCNA Network Analysis]:::analysis
-        
-        SigDEGs --> Enrich
-        Model --> VST
-        VST --> WGCNA
-    end
-
-    subgraph Viz [4. Visualizations]
-        Plots[Volcano and MA Plots]:::visual
-        Heatmap[Z-Score Heatmap]:::visual
-        NetViz[Module-Trait Correlation]:::visual
-        
-        SigDEGs --> Plots
-        SigDEGs --> Heatmap
-        VST --> Heatmap
-        WGCNA --> NetViz
-    end
-```
-
----
-
-## 📂 Datasets Analyzed
+## Datasets Analyzed
 
 All four datasets were aligned to the **GRCh38.p13 NCBI** reference genome and provided as Entrez gene ID-indexed raw count matrices. Merged by intersecting common genes across all cohorts.
 
@@ -89,7 +35,7 @@ All four datasets were aligned to the **GRCh38.p13 NCBI** reference genome and p
 
 ---
 
-## 🧪 Analytical Pipeline
+## Analytical Pipeline
 
 ### 1. Count Matrix Integration
 Raw count matrices loaded with `data.table::fread()`. Common genes across all four datasets identified using `Reduce(intersect, ...)`, matrices subset and column-bound into a single merged matrix. Rows with zero total counts removed. Saved as `HCC_merged_raw_counts.tsv`.
@@ -130,7 +76,7 @@ Module eigengenes correlated against binary traits (Diseased / Control). Gene Si
 
 ---
 
-## 🖼️ Visualizations
+## Visualizations
 
 ### 1. Differential Gene Expression — MA Plot and Volcano Plot
 
@@ -192,9 +138,12 @@ Over-representation analysis for GO sub-ontologies (top 10 terms each, faceted b
  <img src="results_HCC/03_plots/WGCNA/wgcna2.png" width="90%" alt="WGCNA Network Construction">
 </p>
 
+
 ---
 
-## 🛠️ R Dependencies
+
+
+## R Dependencies
 
 ### CRAN
 
@@ -219,6 +168,7 @@ Over-representation analysis for GO sub-ontologies (top 10 terms each, faceted b
 | `circlize` | Color ramp functions for heatmap scales |
 | `BiocParallel` | Parallel backend registration |
 
+
 ### Installation
 
 ```r
@@ -231,10 +181,3 @@ if (!require("BiocManager")) install.packages("BiocManager")
 BiocManager::install(c("DESeq2", "org.Hs.eg.db", "clusterProfiler",
                        "enrichplot", "ComplexHeatmap", "circlize",
                        "BiocParallel"))
-```
-
----
-
-## 🤝 Acknowledgments
-
-This analysis and project development were conducted under the mentorship and guidance of **Inamul Hasan Madar**, Director at the Center for Information and Open Data Studies (CIODS), Yenepoya University, Mangalore.
