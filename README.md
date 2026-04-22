@@ -1,14 +1,71 @@
 # Hepatocellular Carcinoma (HCC) — Bulk RNA-seq Differential Gene Expression Analysis
 
-[![R](https://img.shields.io/badge/Language-R_4.0+-blue.svg)](https://www.r-project.org/)
-[![DESeq2](https://img.shields.io/badge/Package-DESeq2-orange.svg)](https://bioconductor.org/packages/release/bioc/html/DESeq2.html)
-[![sva](https://img.shields.io/badge/Package-sva_(ComBat--seq)-purple.svg)](https://bioconductor.org/packages/release/bioc/html/sva.html)
-[![clusterProfiler](https://img.shields.io/badge/Package-clusterProfiler-teal.svg)](https://bioconductor.org/packages/release/bioc/html/clusterProfiler.html)
-[![License](https://img.shields.io/badge/License-MIT-yellowgreen.svg)](https://opensource.org/licenses/MIT)
+[![R](https://img.shields.io/badge/Language-R_4.0+-198CE7.svg)](https://www.r-project.org/)
+[![DESeq2](https://img.shields.io/badge/Bioc-DESeq2-F05032.svg)](https://bioconductor.org/packages/DESeq2/)
+[![clusterProfiler](https://img.shields.io/badge/Bioc-clusterProfiler-FF1493.svg)](https://bioconductor.org/packages/clusterProfiler/)
+[![ComplexHeatmap](https://img.shields.io/badge/Bioc-ComplexHeatmap-DC143C.svg)](https://bioconductor.org/packages/ComplexHeatmap/)
+[![WGCNA](https://img.shields.io/badge/CRAN-WGCNA-8A2BE2.svg)](https://cran.r-project.org/package=WGCNA)
+[![tidyverse](https://img.shields.io/badge/CRAN-tidyverse-5F9EA0.svg)](https://cran.r-project.org/package=tidyverse)
+[![ggrepel](https://img.shields.io/badge/CRAN-ggrepel-BDB76B.svg)](https://cran.r-project.org/package=ggrepel)
+[![ggExtra](https://img.shields.io/badge/CRAN-ggExtra-FF8C00.svg)](https://cran.r-project.org/package=ggExtra)
+[![License](https://img.shields.io/badge/License-MIT-4CAF50.svg)](https://opensource.org/licenses/MIT)
 
 ## Project Overview
 
 This repository contains a comprehensive, multi-cohort bulk RNA-seq bioinformatics pipeline for Hepatocellular Carcinoma (HCC). By integrating four independent GEO datasets aligned to GRCh38.p13, the pipeline models inter-study batch effects within the DESeq2 design formula to identify robust transcriptomic signatures. The workflow covers raw count matrix integration, DESeq2-based differential expression, protein-coding gene filtering, functional enrichment (GO and KEGG), Gene Set Enrichment Analysis (GSEA), and Weighted Gene Co-expression Network Analysis (WGCNA).
+
+**Main Analysis Script:** [`r_script/liver_lihc_final.R`](r_script/liver_lihc_final.R)
+
+### Pipeline Workflow
+
+```mermaid
+graph TD
+    classDef data fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef process fill:#f3e5f5,stroke:#4a148c,stroke-width:2px;
+    classDef analysis fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px;
+    classDef visual fill:#fff3e0,stroke:#e65100,stroke-width:2px;
+
+    subgraph Input [1. Input Datasets]
+        direction LR
+        D1(GSE77314):::data
+        D2(GSE124535):::data
+        D3(GSE138485):::data
+        D4(GSE144269):::data
+    end
+
+    Merge[Merge & Intersect Raw Counts]:::process
+    Input --> Merge
+
+    subgraph DEG [2. Differential Expression]
+        Model[DESeq2 Modeling<br/>~ batch + condition]:::process
+        Filter[Filter Non-Coding Elements]:::process
+        SigDEGs(Protein-Coding DEGs):::data
+        
+        Merge --> Model
+        Model --> Filter
+        Filter --> SigDEGs
+    end
+
+    subgraph Downstream [3. Downstream Analytics]
+        Enrich[GO & KEGG Enrichment]:::analysis
+        VST[VST Normalization]:::process
+        WGCNA[WGCNA Network Analysis]:::analysis
+        
+        SigDEGs --> Enrich
+        Model --> VST
+        VST --> WGCNA
+    end
+
+    subgraph Viz [4. Visualizations]
+        Plots[Volcano & MA Plots]:::visual
+        Heatmap[Z-Score Heatmap]:::visual
+        NetViz[Module-Trait Correlation]:::visual
+        
+        SigDEGs --> Plots
+        SigDEGs --> Heatmap
+        VST --> Heatmap
+        WGCNA --> NetViz
+    end
 
 **Main Analysis Script:** [`r_script/liver_lihc_final.R`](r_script/liver_lihc_final.R)
 
